@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./assets/style/reset.css">
+    <link rel="stylesheet" href="./assets/style/style.css">
+
 </head>
 <body>
     <!-- Header for page title and scores -->
@@ -24,21 +27,24 @@
             <h2>Got what it takes to be a JS pro?</h2>
             <button id="startButton">Start</button>
             <button id="resetButton">Reset</button>
+
         </section>
 
         <!-- Quiz page that displays questions and the timer -->
         <section id="quizPage" data-vis="false">
+
             <h2 id="questionPrompt">Question prompt</h2>
             <button id="answer1">Answer 1</button>
             <button id="answer2">Answer 2</button>
             <button id="answer3">Answer 3</button>
             <button id="answer4">Answer 4</button>
+            <h3 id="timerEl"><span></span>sec remaining</h3>
         </section>
 
         <!-- Results page that displays performance of the last run
             and the ability to enter initials to log the score-->
         <section id="resultPage" data-vis="false">
-            <h2>You got a score of <span></span> out of 10!</h2>
+            <h2>You got a score of <span id="userScore"></span> out of 10!</h2>
             <input id="userInitials" placeholder="GEM" type="text">
             <button id="submitButton">Submit score</button>
         </section>
@@ -49,6 +55,8 @@
     <footer>
 
     </footer>
+
+    <script src="./assets/js/script.js"></script>
     
 </body>
 </html>
