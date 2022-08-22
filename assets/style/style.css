@@ -1,0 +1,41 @@
+* {
+    margin: 5px;
+}
+
+header {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+header h1 {
+    font-size: 40px;
+    margin: 10px
+
+}
+
+header p {
+    margin: 10px;
+}
+
+main {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+main section {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    border: 2px solid black;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px black;
+}
+
+
