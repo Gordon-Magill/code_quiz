@@ -1,5 +1,11 @@
 * {
     margin: 5px;
+    padding: 5px;
+}
+
+span {
+    padding:0px;
+    margin: 0px;
 }
 
 header {
@@ -36,6 +42,12 @@ main section {
     padding: 20px;
     border-radius: 20px;
     box-shadow: 5px 5px 5px black;
+}
+
+#quizPage {
+    display: none;
+    align-items: flex-start;
+    padding: 5px 50px 5px 50px;
 }
 
 

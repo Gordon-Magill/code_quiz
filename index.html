@@ -14,8 +14,8 @@
     <header>
         <h1>Javascript Quiz</h1>
         <p>
-            Wins: <span class="winCount"></span><br>
-            Losses <span class="lossCount"></span>
+            Wins: <span id="winCount"></span><br>
+            Losses <span id="lossCount"></span>
         </p>
 
     </header> 
@@ -44,7 +44,7 @@
         <!-- Results page that displays performance of the last run
             and the ability to enter initials to log the score-->
         <section id="resultPage" data-vis="false">
-            <h2>You got a score of <span id="userScore"></span> out of 10!</h2>
+            <h2>You got a score of <span id="userScore">0</span> out of 10!</h2>
             <input id="userInitials" placeholder="GEM" type="text">
             <button id="submitButton">Submit score</button>
         </section>
