@@ -21,6 +21,12 @@ var answer2CheckBoxLabel = document.querySelector('#answer2Label');
 var answer3CheckBoxLabel = document.querySelector('#answer3Label');
 var answer0CheckBoxLabel = document.querySelector('#answer0Label');
 
+// The answer checkboxes themselves
+var answer1CheckBox = document.querySelector('#answer1')
+var answer2CheckBox = document.querySelector('#answer2')
+var answer3CheckBox = document.querySelector('#answer3')
+var answer0CheckBox = document.querySelector('#answer0')
+
 // The set of all checkbox elements 
 var allCheckBoxes = document.querySelectorAll("input[type='checkbox']");
 
@@ -38,6 +44,7 @@ numQuestions = 10; //Number of questions to be asked on the quiz
 timerMaxDuration = 60; //Duration in seconds
 correctQuestions = 0; //Counter for the correctly answered questions
 
+// Questions, possible answers, and the correct answer encoded as the 
 questionsAnswersRef = [
     {question:'Why is JSON required for using local storage in conjunction with non-string objects?',
     answer1: "localStorage can only store and get string representations of objects",
@@ -174,10 +181,14 @@ function playGame() {
     return;
 }
 
+function setCorrectAnswer(question) {
+
+}
 
 
 // Selects a fresh question and updates the page
 function refreshQuestion() {
+    
     // If there are no more questions, end the game
     questionLength = questionsAnswers.length;
     if (questionLength<1) {
@@ -209,18 +220,26 @@ function gradeAnswer(event) {
     event.preventDefault();
     var checkedAnswers = document.querySelectorAll('input:checked')
 
-    // if (checkedAnswers.length>1) {
-    //     // More than one answer was submitted, which is wrong
-    // } else if (checkedAnswers[0].getAttribute('data-correct') { // Compare if the only selected answer was the correct one
-        
-        
-    // }
+    console.log("Checked answers:")
+    console.log(checkedAnswers)
+    console.log("Checked answer status:")
+    console.log(checkedAnswers[0].getAttribute('data-correct'))
 
-    refreshQuestion()
+    if (checkedAnswers.length>1) {
+        // More than one answer was submitted, which is wrong
+        console.log('Submitted more than one answer, incorrect')
+        refreshQuestion();
+    } else if (checkedAnswers[0].getAttribute('data-correct')=='true') {
+        // Compare if the only selected answer was the correct one
+        correctQuestions++
+        console.log('Correct answer, points now at '+correctQuestions)
+        refreshQuestion()
+    } else {
+        console.log('No correct answer detected')
+        refreshQuestion()
+    }
+    
 
-
-
-    return;
 }
 
 function endGame() {
