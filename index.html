@@ -13,10 +13,10 @@
     <!-- Header for page title and scores -->
     <header>
         <h1>Javascript Quiz</h1>
-        <p>
+        <!-- <p>
             Wins: <span id="winCount"></span><br>
             Losses <span id="lossCount"></span>
-        </p>
+        </p> -->
 
     </header> 
 
@@ -26,7 +26,7 @@
         <section id='startPage' data-vis="true">
             <h2>Got what it takes to be a JS pro?</h2>
             <button id="startButton">Start</button>
-            <button id="resetButton">Reset</button>
+            <!-- <button id="resetButton">Reset</button> -->
 
         </section>
 
@@ -34,10 +34,36 @@
         <section id="quizPage" data-vis="false">
 
             <h2 id="questionPrompt">Question prompt</h2>
-            <button id="answer1">Answer 1</button>
-            <button id="answer2">Answer 2</button>
-            <button id="answer3">Answer 3</button>
-            <button id="answer4">Answer 4</button>
+
+            <form>
+                <ul>
+                    <li>
+                        <input type="checkbox" id="answer1" data-correct="false"></input>
+                        <label for="answer1" id="answer1Label">Testing Testing Testing</label>
+                    </li>
+                
+                    <li>
+                        <input type="checkbox" id="answer2"  data-correct="false"></input>
+                        <label for="answer2" id="answer2Label">Testing Testing Testing</label>
+                    </li>
+                    
+                    <li>
+                        <input type="checkbox" id="answer3"  data-correct="false"></input>
+                        <label for="answer3" id="answer3Label">Testing Testing Testing</label>
+                    </li>
+                    
+                    <li>
+                        <input type="checkbox" id="answer0"  data-correct="false"></input>
+                        <label for="answer0" id="answer0Label">Testing Testing Testing</label>
+                    </li>
+                    
+                    <li>
+                        <input type="submit" name="gradeAnswer" id="submitAnswer" value="Submit answer(s)"></input>
+                    </li>
+                    
+                </ul>
+            </form>
+
             <h3 id="timerEl"><span></span>sec remaining</h3>
         </section>
 
