@@ -10,6 +10,7 @@ span {
 
 body {
     padding: 0px;
+    background-color: gray;
 }
 
 header {
@@ -22,7 +23,8 @@ header {
 
 header h1 {
     font-size: 40px;
-    margin: 10px
+    margin: 10px;
+    text-shadow: 0px 0px 10px white, 0px 0px 10px white, 0px 0px 10px white;
 
 }
 
@@ -37,14 +39,15 @@ main {
 }
 
 main section {
+    background-color: white;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
     width: 80%;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     padding: 20px;
     border-radius: 20px;
-    box-shadow: 5px 5px 5px black;
+    box-shadow: 0px 0px 10px white, 0px 0px 10px white, 0px 0px 10px white;
 }
 
 #startPage {

@@ -373,3 +373,17 @@ function refreshHighScores() {
 // Initialize the game questions
 var questionsAnswers = questionsAnswersRef; // Set up a randomized copy of the questions
 shuffle(questionsAnswers); //Randomize order of questions
+
+// var maxRadius = 20; //px
+// var minRadius = 5; //px
+// var radiusChangeDirection = -1;
+
+// var newRadius = 20;
+// setInterval(function(){
+//   quizPage.style.borderRadius = `${newRadius}px`;
+//   newRadius =+ radiusChangeDirection;
+//   if (newRadius <2 || newRadius >19) {
+//     radiusChangeDirection *= -1;
+//   }
+
+// }, 1000/60)
