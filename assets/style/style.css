@@ -1,4 +1,4 @@
-* {
+body * {
     margin: 5px;
     padding: 5px;
 }
@@ -6,6 +6,10 @@
 span {
     padding:0px;
     margin: 0px;
+}
+
+body {
+    padding: 0px;
 }
 
 header {
@@ -61,3 +65,11 @@ main section {
     display: none;
 }
 
+/* Phone formatting */
+@media screen and (max-width: 600px) {
+    main section {
+
+        width: 95%;
+    }
+    
+}
