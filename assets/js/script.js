@@ -225,9 +225,9 @@ function gradeAnswer(event) {
     // console.log("Checked answer status:")
     // console.log(checkedAnswers[0].getAttribute('data-correct'))
 
-    if (checkedAnswers.length>1) {
-        // More than one answer was submitted, which is wrong
-        console.log('Submitted more than one answer, incorrect')
+    if (checkedAnswers.length !== 1) {
+        // Didn't submit the correct number of answers, there is only a single true option
+        console.log('Bad number of submitted answers, incorrect')
         refreshQuestion();
         timerValue -= timerPenalty;
     } else if (checkedAnswers[0].getAttribute('data-correct')=='true') {
@@ -248,6 +248,7 @@ function gradeAnswer(event) {
 function endGame() {
     quizPage.style.display = 'none';
     resultPage.style.display = 'flex';
+    
     userScore.textContent = correctAnswers;
 
 }
@@ -268,11 +269,25 @@ function submitScore(event) {
     function scoreHelper() {
         console.log('Acivated scoreHelper() to refresh the results page with post-game content and save highScores')
 
+        // Disable the input text field
+        initialForm.disabled = true;
+
+        // Sorting function for high scores, sorting by the point value
+        function scoreSorter(a,b) {
+            if (a.userPoints < b.userPoints) {
+                return 1
+            } else if (a.userPoints > b.userPoints) {
+                return -1
+            } else {
+                return 0
+            }
+        }
+
         // Sort the scores
         highScores.sort(scoreSorter)
 
         // Only store the top 10 scores
-        highScores = highScores.slice(0,9)
+        highScores = highScores.slice(0,10)
 
         // Save the new high scores to localStorage
         localStorage.setItem('highScores',JSON.stringify(highScores))
@@ -281,7 +296,7 @@ function submitScore(event) {
         refreshHighScores()
 
         // Change the results page message
-        resultMessage.textContent = "Your score has been submitted!"
+        resultMessage.textContent += "\nYour score has been submitted!"
         submitButton.disabled = true;
     }
 
@@ -320,16 +335,7 @@ function submitScore(event) {
             highScores.push(userScore)
         }
 
-        // Sorting function for high scores, sorting by the point value
-        function scoreSorter(a,b) {
-            if (a.userPoints < b.userPoints) {
-                return 1
-            } else if (a.userPoints > b.userPoints) {
-                return -1
-            } else {
-                return 0
-            }
-        }
+        
 
         
 
@@ -340,6 +346,8 @@ function submitScore(event) {
 }
 
 function refreshHighScores() {
+
+    document.querySelector('#highScoresTitle').style.display = 'block';
 
     // Adding header to the table
     var tableHeader = document.createElement('tr')
