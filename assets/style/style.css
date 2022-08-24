@@ -33,7 +33,6 @@ main {
 }
 
 main section {
-    display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
@@ -44,10 +43,18 @@ main section {
     box-shadow: 5px 5px 5px black;
 }
 
+#startPage {
+    display: flex;
+}
+
 #quizPage {
     display: none;
     align-items: flex-start;
     padding: 5px 50px 5px 50px;
+}
+
+#resultPage {
+    display: none;
 }
 
 

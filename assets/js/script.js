@@ -16,19 +16,22 @@ startButton.addEventListener('click', playGame);
 var questionPrompt = document.querySelector("#questionPrompt")
 
 // Checkbox labels for the questions
+var answer0CheckBoxLabel = document.querySelector('#answer0Label');
 var answer1CheckBoxLabel = document.querySelector('#answer1Label');
 var answer2CheckBoxLabel = document.querySelector('#answer2Label');
 var answer3CheckBoxLabel = document.querySelector('#answer3Label');
-var answer0CheckBoxLabel = document.querySelector('#answer0Label');
 
 // The answer checkboxes themselves
+var answer0CheckBox = document.querySelector('#answer0')
 var answer1CheckBox = document.querySelector('#answer1')
 var answer2CheckBox = document.querySelector('#answer2')
 var answer3CheckBox = document.querySelector('#answer3')
-var answer0CheckBox = document.querySelector('#answer0')
 
 // The set of all checkbox elements 
 var allCheckBoxes = document.querySelectorAll("input[type='checkbox']");
+
+// The text element stating the score of the current completed quiz
+var userScore = document.querySelector('#userScore')
 
 // The button for submitting an answer to one of the questions
 var submitAnswerButton = document.querySelector("#submitAnswer")
@@ -42,79 +45,79 @@ submitButton.addEventListener('click', submitScore)
 // Basic setup variables for the quiz
 numQuestions = 10; //Number of questions to be asked on the quiz
 timerMaxDuration = 60; //Duration in seconds
-correctQuestions = 0; //Counter for the correctly answered questions
+correctAnswers = 0; //Counter for the correctly answered questions
 
 // Questions, possible answers, and the correct answer encoded as the 
 questionsAnswersRef = [
     {question:'Why is JSON required for using local storage in conjunction with non-string objects?',
-    answer1: "localStorage can only store and get string representations of objects",
-    answer2: "Objects will be stored as '[object Object]' without the usage of JSON.stringify()",
-    answer3: "Both A and B",
-    answer0: "Neither A nor B",
-    correctAns: 3},
+    answer0: "localStorage can only store and get string representations of objects",
+    answer1: "Objects will be stored as '[object Object]' without the usage of JSON.stringify()",
+    answer2: "Both A and B",
+    answer3: "Neither A nor B",
+    correctAns: 2},
 
     {question:'Which three components compose a conditional iterator in a "for" loop?',
-    answer1: "Iterator increment value",
-    answer2: "Conditional statement",
-    answer3: "Iterator declaration",
-    answer0: "All of the above",
+    answer0: "Iterator increment value",
+    answer1: "Conditional statement",
+    answer2: "Iterator declaration",
+    answer3: "All of the above",
+    correctAns: 3},
+
+    {question:'Which characters are used to enclose the conditional statement of an "if" block?',
+    answer0: "()",
+    answer1: "[]",
+    answer2: "{}",
+    answer3: "Spaces",
     correctAns: 0},
 
-    {question:'How do ',
-    answer1: "Answer1-3",
-    answer2: "Answer2-3",
-    answer3: "Answer3-3",
-    answer0: "answer0-3",
-    correctAns: 3},
+    {question:'Which characters are used to enclose the executed code block of an "if" block?',
+    answer0: "()",
+    answer1: "[]",
+    answer2: "{}",
+    answer3: "Spaces",
+    correctAns: 2},
 
-    {question:'Question 4',
-    answer1: "Answer1-4",
-    answer2: "Answer2-4",
-    answer3: "Answer3-4",
-    answer0: "answer0-4",
-    correctAns: 3},
+    {question:'Which command will cause code execution to jump out of the current block and move to the next expression?',
+    answer0: "stop",
+    answer1: "clear",
+    answer2: "break",
+    answer3: "continue",
+    correctAns: 2},
 
-    {question:'Question 5',
-    answer1: "Answer1-5",
-    answer2: "Answer2-5",
-    answer3: "Answer3-5",
-    answer0: "answer0-5",
-    correctAns: 3},
+    {question:'Which of these is not a primitive type in JS?',
+    answer0: "number",
+    answer1: "dataframe",
+    answer2: "boolean",
+    answer3: "string",
+    correctAns: 1},
 
-    {question:'Question 6',
-    answer1: "Answer1-6",
-    answer2: "Answer2-6",
-    answer3: "Answer3-6",
-    answer0: "answer0-6",
-    correctAns: 3},
+    {question:'Which character is used to select an id in CSS?',
+    answer0: "#",
+    answer1: "$",
+    answer2: ".",
+    answer3: "!",
+    correctAns: 0},
 
-    {question:'Question 7',
-    answer1: "Answer1-7",
-    answer2: "Answer2-7",
-    answer3: "Answer3-7",
-    answer0: "answer0-7",
-    correctAns: 3},
+    {question:'Which character is used to select a class in CSS?',
+    answer0: "#",
+    answer1: "$",
+    answer2: ".",
+    answer3: "!",
+    correctAns: 2},
 
-    {question:'Question 8',
-    answer1: "Answer1-8",
-    answer2: "Answer2-8",
-    answer3: "Answer3-8",
-    answer0: "answer0-8",
-    correctAns: 3},
+    {question:'What function can be used to prevent automatic refreshing on form submissions?',
+    answer0: "event.stopPropagation()",
+    answer1: "event.preventDefault()",
+    answer2: "event.stopImmediatePropagation()",
+    answer3: "event.coolIt()",
+    correctAns: 1},
 
-    {question:'Question 9',
-    answer1: "Answer1-9",
-    answer2: "Answer2-9",
-    answer3: "Answer3-9",
-    answer0: "answer0-9",
-    correctAns: 3},
-
-    {question:'Question 10',
-    answer1: "Answer1-10",
-    answer2: "Answer2-10",
-    answer3: "Answer3-10",
-    answer0: "answer0-10",
-    correctAns: 3},
+    {question:'What is your favorite type of pizza (a serious and objectively definable question in JS)?',
+    answer0: "Supreme",
+    answer1: "Cheese",
+    answer2: "Pepperoni",
+    answer3: "Vegetarian",
+    correctAns: 0},
 ];
 
 // From https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
@@ -136,34 +139,11 @@ function shuffle(array) {
     return array;
   }
 
-var questionsAnswers = questionsAnswersRef;
-shuffle(questionsAnswers); //Randomize order of questions
-
-// Default user score object, will be initialized with non-default
-// values when user finishes a game
-userScoreTemplate = {
-    userName:"",
-    userScore:0
-}
-
-// Retrieve user's stats from local storage
-function initPage() {
-    // startPage.style.display = 'flex'
-}
-
-// Updates the win/loss scores at the top of the page
-// function renderWL() {
-//     winDisplay.textContent = wins;
-//     lossDisplay.textContent = losses;
-
-// }
-
-// Start the game by loading up any stored stats
-initPage()
 
 
 // Starts the game after the start button is pressed
 function playGame() {
+    startPage.style.display = 'none';
     quizPage.style.display = "flex";
     var timerValue = timerMaxDuration;
 
@@ -181,8 +161,22 @@ function playGame() {
     return;
 }
 
+// Given a question object, set the html attributes for the checkboxes to reflect the correct answer
 function setCorrectAnswer(question) {
 
+    // Cycle through all the checkboxes
+    for (i=0;i<allCheckBoxes.length; i++) {
+
+        // If the integer in question.correctAns matches the index of the iterator, set its answer to true
+        if (question.correctAns == i) {
+            allCheckBoxes[i].setAttribute('data-correct','true')
+        }
+        else {
+            allCheckBoxes[i].setAttribute('data-correct','false')
+        }
+        
+        console.log("Set question "+i+" to "+allCheckBoxes[i].getAttribute('data-correct'))
+    }
 }
 
 
@@ -204,15 +198,13 @@ function refreshQuestion() {
     answer3CheckBoxLabel.textContent = currentQuestion.answer3;
     answer0CheckBoxLabel.textContent = currentQuestion.answer0;
 
+    setCorrectAnswer(currentQuestion)
 
     // Upon refresh, uncheck all of the checkboxes
     for (i=0;i<allCheckBoxes.length; i++) {
         allCheckBoxes[i].checked = false;
     }
 
-
-
-    return;
 }
 
 function gradeAnswer(event) {
@@ -231,8 +223,8 @@ function gradeAnswer(event) {
         refreshQuestion();
     } else if (checkedAnswers[0].getAttribute('data-correct')=='true') {
         // Compare if the only selected answer was the correct one
-        correctQuestions++
-        console.log('Correct answer, points now at '+correctQuestions)
+        correctAnswers++
+        console.log('Correct answer, points now at '+correctAnswers)
         refreshQuestion()
     } else {
         console.log('No correct answer detected')
@@ -243,10 +235,17 @@ function gradeAnswer(event) {
 }
 
 function endGame() {
-    return;
+    quizPage.style.display = 'none';
+    resultPage.style.display = 'flex';
+    userScore.textContent = correctAnswers;
+
 }
 
 // Updates the 
 function submitScore() {
     return;
 }
+
+// Initialize the game questions
+var questionsAnswers = questionsAnswersRef; // Set up a randomized copy of the questions
+shuffle(questionsAnswers); //Randomize order of questions
