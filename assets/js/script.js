@@ -150,6 +150,7 @@ function shuffle(array) {
 
 // Starts the game after the start button is pressed
 function playGame() {
+    startButton.disabled = true;
     startPage.style.display = 'none';
     quizPage.style.display = "flex";
 
@@ -265,13 +266,13 @@ function submitScore(event) {
     }
 
     function scoreHelper() {
-        console.log('Acivated scoreHelper()')
+        console.log('Acivated scoreHelper() to refresh the results page with post-game content and save highScores')
 
         // Sort the scores
         highScores.sort(scoreSorter)
 
         // Only store the top 10 scores
-        highScores = highScore.slice(0,9)
+        highScores = highScores.slice(0,9)
 
         // Save the new high scores to localStorage
         localStorage.setItem('highScores',JSON.stringify(highScores))
@@ -340,10 +341,25 @@ function submitScore(event) {
 
 function refreshHighScores() {
 
-    var tableHeader = document.createElement('<tr>')
-    tableHeader.innerHTML = '<tr><th>Initials</th><th>Score</th></tr>'
+    // Adding header to the table
+    var tableHeader = document.createElement('tr')
+    tableHeader.innerHTML = '<th>Initials</th><th>Score</th>'
 
-    var tableHolder = document.querySelector('#highScoreTable')
+    // Adding the table header to the table
+    var highScoreTable = document.querySelector('#highScoreTable')
+    highScoreTable.appendChild(tableHeader)
+
+    // Adding table rows for each entry in highScores
+    for (i=0; i<highScores.length; i++) {
+
+        // Ahhh, so this is how it's done in JS - loved f-strings in python
+        // Create and append a table row with the correct data already loaded in
+        var tableRow = document.createElement('tr');
+        tableRow.innerHTML = `<td id="td${i}userInitial">${highScores[i].userInitials}</td><td id="td${i}userScore">${highScores[i].userPoints}</td>`;
+        highScoreTable.appendChild(tableRow)
+    }
+
+
 
 
 
