@@ -187,7 +187,7 @@ function playGame() {
   setInterval(function () {
     timerValue--; //Decrement timer by 1
     timerTimeLeft.textContent = timerValue;
-    if (timerValue == 0) {
+    if (timerValue <= 0) {
       endGame();
     //   clearInterval();
     }
