@@ -1,18 +1,22 @@
+/* Add default padding and margin to space out items */
 body * {
     margin: 5px;
     padding: 5px;
 }
 
+/* Remove default box spacing from spans to improve text consistency*/
 span {
     padding:0px;
     margin: 0px;
 }
 
+/* Give the body a dark background */
 body {
     padding: 0px;
     background-color: gray;
 }
 
+/* Style the page header box */
 header {
     display: flex;
     flex-flow: column nowrap;
@@ -21,45 +25,47 @@ header {
     padding: 20px;
 }
 
+/* Page's main title text */
 header h1 {
+    text-align: center;
     font-size: 40px;
     margin: 10px;
+    /* Triple shadow to get enough visibility */
     text-shadow: 0px 0px 10px white, 0px 0px 10px white, 0px 0px 10px white;
 
 }
 
-header p {
-    margin: 10px;
-}
-
+/* Container of most content on the page */
 main {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
 }
 
+/* Each main section is effectively its own page, and houses unique content */
 main section {
     background-color: white;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
     width: 80%;
-    /* border: 2px solid black; */
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px white, 0px 0px 10px white, 0px 0px 10px white;
 }
 
+/* Styles the first page where the user can start the game */
 #startPage {
     display: flex;
 }
-
+/* Styles the page where questions are presented */
 #quizPage {
     display: none;
     align-items: flex-start;
     padding: 5px 50px 5px 50px;
 }
 
+/* Styles the page where the user can submit and see scores */
 #resultPage {
     display: none;
     flex-flow: column nowrap;
@@ -67,14 +73,17 @@ main section {
     justify-content: center;
 }
 
+/* Topmost text in the resultsPage */
 #resultMessage {
     text-align: center;
 }
 
+/* Hiding the title of the scores board until scores are shown */
 #highScoresTitle {
     display: none;
 }
 
+/* Aligning elements in the scores submission form for better responsiveness */
 #highScoreForm {
     display: flex;
     flex-flow: column nowrap;
@@ -84,7 +93,7 @@ main section {
 /* Phone formatting */
 @media screen and (max-width: 600px) {
     main section {
-
+        /* Use less side spacing on mobile to make better use of small screen */
         width: 95%;
     }
     
