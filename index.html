@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Javascript Quiz</title>
     <link rel="stylesheet" href="./assets/style/reset.css">
     <link rel="stylesheet" href="./assets/style/style.css">
 
@@ -23,19 +23,20 @@
     <!-- Main as container for quiz area / score display -->
     <main>
         <!-- Start page with button to start and current high scores -->
-        <section id='startPage' data-vis="true">
+        <section id='startPage'>
             <h2>Got what it takes to be a JS pro?</h2>
             <button id="startButton">Start</button>
-            <!-- <button id="resetButton">Reset</button> -->
 
         </section>
 
         <!-- Quiz page that displays questions and the timer -->
-        <section id="quizPage" data-vis="false">
+        <section id="quizPage">
 
             <h2 id="questionPrompt">Question prompt</h2>
 
+            <!-- List of questions, gets refreshed in JS -->
             <form>
+                
                 <ul>
                     <li id="questionLi">
                         <input type="checkbox" id="answer0" data-correct="false"></input>
@@ -64,20 +65,26 @@
                 </ul>
             </form>
 
+            <!-- Display for the remaining time -->
             <h3 id="timerEl"><span id="timerTimeLeft">60</span> sec remaining</h3>
         </section>
 
         <!-- Results page that displays performance of the last run
             and the ability to enter initials to log the score-->
-        <section id="resultPage" data-vis="false">
+        <section id="resultPage">
             <h2 id="resultMessage">You got a score of <span id="userScore">0</span> out of 10!</h2>
+
+            <!-- Form for putting in initials and submitting a score -->
             <form id="highScoreForm">
                 <input id="userInitials" placeholder="GEM" type="text"></input>
                 <input type="submit" id="submitButton" value="Submit score"></input>
             </form>
+
+            <!-- Buttons for reseting score and the game -->
             <button id="btnClearScores">Clear Scores</button>
             <button id="btnPlayAgain">Play Again</button>
 
+            <!-- High score table, gets added to in JS -->
             <h2 id="highScoresTitle">High Scores</h2>
             <table id="highScoreTable"></table>
             
