@@ -42,6 +42,11 @@ submitAnswerButton.addEventListener("click", gradeAnswer);
 // Timer <span> value shown to the user
 var timerTimeLeft = document.querySelector("#timerTimeLeft");
 
+var btnClearScores = document.querySelector('#btnClearScores');
+btnClearScores.addEventListener('click', clearScores);
+var btnPlayAgain = document.querySelector("#btnPlayAgain");
+btnPlayAgain.addEventListener('click', playAgain);
+
 // Elements that handle the user submitting a score for ranking
 var initialForm = document.querySelector("#userInitials");
 var submitButton = document.querySelector("#submitButton");
@@ -350,30 +355,56 @@ function submitScore(event) {
 }
 
 function refreshHighScores() {
+  highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
   document.querySelector("#highScoresTitle").style.display = "block";
-
-  // Adding header to the table
-  var tableHeader = document.createElement("tr");
-  tableHeader.innerHTML = "<th>Initials</th><th>Score</th>";
-
-  // Adding the table header to the table
   var highScoreTable = document.querySelector("#highScoreTable");
-  highScoreTable.appendChild(tableHeader);
 
-  // Adding table rows for each entry in highScores
-  for (i = 0; i < highScores.length; i++) {
-    // Ahhh, so this is how it's done in JS - loved f-strings in python
-    // Create and append a table row with the correct data already loaded in
-    var tableRow = document.createElement("tr");
-    tableRow.innerHTML = `<td id="td${i}userInitial">${highScores[i].userInitials}</td><td id="td${i}userScore">${highScores[i].userPoints}</td>`;
-    highScoreTable.appendChild(tableRow);
+  if (highScores.length>0) {
+    // If there are high scores to display, create a table for them
+
+    var tableHeader = document.createElement("tr");
+    tableHeader.innerHTML = "<th>Initials</th><th>Score</th>";
+  
+    // Adding the table header to the table
+    highScoreTable.appendChild(tableHeader);
+  
+    // Adding table rows for each entry in highScores
+    for (i = 0; i < highScores.length; i++) {
+      // Ahhh, so this is how it's done in JS - loved f-strings in python
+      // Create and append a table row with the correct data already loaded in
+      var tableRow = document.createElement("tr");
+      tableRow.innerHTML = `<td id="td${i}userInitial">${highScores[i].userInitials}</td><td id="td${i}userScore">${highScores[i].userPoints}</td>`;
+      highScoreTable.appendChild(tableRow);
+    } 
+
+  } else {
+    // If there are no high scores to display, reset the table
+    highScoreTable.innerHTML = '';
+    document.querySelector("#highScoresTitle").style.display = "none";
+
+
   }
+}
+
+function clearScores() {
+  // Deletes any scores from localStorage when the clear storage button is clicked
+  localStorage.clear()
+  refreshHighScores()
+}
+
+function playAgain() {
+  // Resets the page
+  location.reload() //Honestly I thought there would be more to it, but this seems to work
+
 }
 
 // Initialize the game questions
 var questionsAnswers = questionsAnswersRef; // Set up a randomized copy of the questions
 shuffle(questionsAnswers); //Randomize order of questions
 
+
+// // Radical animation attempt
 // var maxRadius = 20; //px
 // var minRadius = 5; //px
 // var radiusChangeDirection = -1;
