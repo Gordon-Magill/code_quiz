@@ -62,7 +62,16 @@ main section {
 #quizPage {
     display: none;
     align-items: flex-start;
+    align-items: center;
     padding: 5px 50px 5px 50px;
+}
+
+/* Add boxes around the question answers */
+#questionLi {
+    border: 2px solid black;
+    border-radius: 3px;
+    background-color: rgb(251, 242, 229);
+    
 }
 
 /* Styles the page where the user can submit and see scores */
@@ -88,6 +97,11 @@ main section {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+}
+
+footer {
+    /* justify-self: flex-end; */
+    text-align: center;
 }
 
 /* Phone formatting */
