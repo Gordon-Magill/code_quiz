@@ -62,10 +62,23 @@ main section {
 
 #resultPage {
     display: none;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#resultMessage {
+    text-align: center;
 }
 
 #highScoresTitle {
     display: none;
+}
+
+#highScoreForm {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
 }
 
 /* Phone formatting */
