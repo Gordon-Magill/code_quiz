@@ -162,6 +162,7 @@ questionsAnswersRef = [
 ];
 
 // From https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+// Function to shuffle questions so that repeated quizes don't have the same question order
 function shuffle(array) {
   let currentIndex = array.length,
     randomIndex;
@@ -184,11 +185,15 @@ function shuffle(array) {
 
 // Starts the game after the start button is pressed
 function playGame() {
+  // Transition page visibility
   startButton.disabled = true;
   startPage.style.display = "none";
   quizPage.style.display = "flex";
 
+  // Present the first question
   refreshQuestion();
+
+  // Start timer for the quiz and set up timeout condition
   setInterval(function () {
     timerValue--; //Decrement timer by 1
     timerTimeLeft.textContent = timerValue;
@@ -211,13 +216,12 @@ function setCorrectAnswer(question) {
     } else {
       allCheckBoxes[i].setAttribute("data-correct", "false");
     }
-
-    // console.log("Set question "+i+" to "+allCheckBoxes[i].getAttribute('data-correct'))
   }
 }
 
 // Selects a fresh question and updates the page
 function refreshQuestion() {
+
   // If there are no more questions, end the game
   questionLength = questionsAnswers.length;
   if (questionLength < 1) {
@@ -247,11 +251,7 @@ function gradeAnswer(event) {
   event.preventDefault();
   var checkedAnswers = document.querySelectorAll("input:checked");
 
-  // console.log("Checked answers:")
-  // console.log(checkedAnswers)
-  // console.log("Checked answer status:")
-  // console.log(checkedAnswers[0].getAttribute('data-correct'))
-
+  // Check correctness of the answers
   if (checkedAnswers.length !== 1) {
     // Didn't submit the correct number of answers, there is only a single true option
     console.log("Bad number of submitted answers, incorrect");
@@ -263,32 +263,36 @@ function gradeAnswer(event) {
     console.log("Correct answer, points now at " + correctAnswers);
     refreshQuestion();
   } else {
+    // Any other condition gets caught as wrong
     console.log("No correct answer detected");
     refreshQuestion();
     timerValue -= timerPenalty;
   }
 }
 
+// Transition from the game to the results page
 function endGame() {
   quizPage.style.display = "none";
   resultPage.style.display = "flex";
   userScore.textContent = correctAnswers;
-
 }
 
+// Setting up high score storage in localstorage
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-console.log("Existing High Scores:");
-console.log(highScores);
+// console.log("Existing High Scores:");
+// console.log(highScores);
 
 // Updates the high scores page and storage after user submits their score
 function submitScore(event) {
   event.preventDefault();
 
+  // Create object to store score information
   userScore = {
     userInitials: initialForm.value,
     userPoints: correctAnswers,
   };
 
+  // Helper function that handles repeated actions that apply to the high scores
   function scoreHelper() {
     console.log(
       "Acivated scoreHelper() to refresh the results page with post-game content and save highScores"
@@ -354,9 +358,13 @@ function submitScore(event) {
   }
 }
 
+// Handles displaying of score information
 function refreshHighScores() {
+
+  // Grabbing a fresh instance of highScores due to scope and ensuring there's fresh data populated
   highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
+  // Changing visibility of the high scores table
   document.querySelector("#highScoresTitle").style.display = "block";
   var highScoreTable = document.querySelector("#highScoreTable");
 
@@ -402,19 +410,3 @@ function playAgain() {
 // Initialize the game questions
 var questionsAnswers = questionsAnswersRef; // Set up a randomized copy of the questions
 shuffle(questionsAnswers); //Randomize order of questions
-
-
-// // Radical animation attempt
-// var maxRadius = 20; //px
-// var minRadius = 5; //px
-// var radiusChangeDirection = -1;
-
-// var newRadius = 20;
-// setInterval(function(){
-//   quizPage.style.borderRadius = `${newRadius}px`;
-//   newRadius =+ radiusChangeDirection;
-//   if (newRadius <2 || newRadius >19) {
-//     radiusChangeDirection *= -1;
-//   }
-
-// }, 1000/60)
